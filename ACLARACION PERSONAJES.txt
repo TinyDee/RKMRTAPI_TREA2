@@ -57,12 +57,7 @@ export default defineComponent({
       })
     }
   },
-  computed: {
-    filterSearch(){
-      return this.characters.filter((character) => {
-        return character.name.toLowerCase().includes(this.search.toLowerCase())
-      })
-    }
-  }
+ }
+}
 });
 </script>
