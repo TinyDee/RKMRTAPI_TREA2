@@ -1,0 +1,68 @@
+===================================================
+CUANDO CARGO EL SIGUIENTE CODIGO A LA PAGINA DE
+PERSONAJES EL PROYECTO SE DETIENE POR COMPLETO
+===================================================
+
+
+
+<template>
+  <q-page>
+
+ <div>
+         <h1>Characters</h1>
+         <div class="content">
+           <div class="content-characters">
+           <div class="character">
+             <img :src="character.image" alt="">
+           <div class="info-character">
+             <h2> {{ character.name}}</h2>
+             <h4> {{ character.species}}</h4>
+             <h4> {{ character.status}}</h4>
+           </div>
+           </div>
+       </div>
+     </div>
+    </div>
+
+  </q-page>
+</template>
+
+<script>
+import { defineComponent } from "vue";
+import axios from 'axios'
+
+export default defineComponent({
+  name: "PersonajesApi",
+
+  components: {
+  },
+  data(){
+    return {
+      search: '',
+      characters: []
+    }
+  },
+  mounted(){
+    this.getTodos();
+  },
+  methods: {
+    getTodos(){
+      axios
+      .get('https://rickandmortyapi.com/api/character/')
+      .then(res => {
+        (this.characters = res.data.results)
+      })
+      .catch(e => {
+        console.log(e)
+      })
+    }
+  },
+  computed: {
+    filterSearch(){
+      return this.characters.filter((character) => {
+        return character.name.toLowerCase().includes(this.search.toLowerCase())
+      })
+    }
+  }
+});
+</script>
